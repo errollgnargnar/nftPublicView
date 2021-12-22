@@ -1,0 +1,34 @@
+*{
+    text-align: center;
+    font-size: smaller;
+}
+body{
+    background-image: linear-gradient(rgb(201, 201, 201),purple);
+    background-size:cover;
+    height:1000px;
+}
+div{
+
+    padding:10px;
+}
+.key-setups{
+    opacity: .8;
+    width:70%;
+    margin:auto;
+    border-radius: 10%;
+    padding:10px;
+}
+a{
+    color:aquamarine;
+}
+a:visited{
+    color:aquamarine;
+}
+.tokens-recieved-ul{
+    background-color: black;
+    color:aquamarine;
+}
+video{
+    margin-top:10px;
+    width: 90%;
+}

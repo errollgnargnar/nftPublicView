@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='style.css' rel='stylesheet'>
+
+    <title>testing api sol scan</title>
+</head>
+<body>
+    <div class='key-setups' >
+        Public Key:<br>
+         <input class='pub-key-input' value='FERY2SmvPQVCX3SJsw8QKU3ZKTG2ZVJS8Et6TSrFdRbq'/>
+        <p>
+            Tokens Recieved: 
+            <div class='tokens-recieved-ul'>
+                <!--  -->
+            </div>
+        </p>
+    </div>
+    <div class='video-embed'>
+        <video controls>
+            <source src="https://bafybeichwqos5koox5ywx5yvd2smsctrshmq4dssjd5dsbgcvcpuda6nvm.ipfs.dweb.link?ext=mp4" type='video/mp4'>
+        </video>
+    </div>
+    <h6 class='nft-title'></h6>
+    <div class='nft-info'>
+        <!--  -->
+    </div>
+    
+    <script>
+        const tokensRecievedUL = document.querySelector('.tokens-recieved-ul');
+        
+        let pubKey = 'FERY2SmvPQVCX3SJsw8QKU3ZKTG2ZVJS8Et6TSrFdRbq';
+        let url = 'https://public-api.solscan.io/account/tokens?account=';
+
+        let accntTokenTotalQuery = url + pubKey;
+
+        let accntTokenRecieved;
+        let tokenAddress = [];
+
+        let tokenHolderURL; 
+
+        function accessAccountTokens() {
+            fetch(accntTokenTotalQuery)
+            .then(response => {
+                return (response.json());
+            })
+            .then(data => {
+                accntTokenRecieved = data;
+                data.forEach(token => {
+                    tokenAddress.push(token.tokenAddress);
+                });
+                console.log(accntTokenRecieved);
+            }).then(() => {
+                tokenAddress.forEach(address => {
+                    const addressLIelem = document.createElement('a');
+                    addressLIelem.textContent = address;
+                    addressLIelem.href = 'https://solscan.io/token/' + address + '#holders';
+                    addressLIelem.setAttribute('target','_blank');
+                    tokensRecievedUL.append(addressLIelem);
+                    accessTokenURIInfo();
+                })
+            })
+        }
+
+        function accessTokenURIInfo(){
+            fetch("https://bafkreihwxicnctxd6gxy4yjyu2ijvd43zkyqyhozbkfi3o2bzkv73unuje.ipfs.dweb.link?ext=json")
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                document.querySelector('.nft-title').textContent = data.name;
+                document.querySelector('.nft-info').textContent = data.description;
+                
+            });
+        }
+
+        accessAccountTokens();
+
+    </script>
+</body>
+</html>
